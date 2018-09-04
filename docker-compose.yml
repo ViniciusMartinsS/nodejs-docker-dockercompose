@@ -1,0 +1,46 @@
+# Definimos que a versão utilizada será a 3.0
+version: '3'
+services:
+  heroes-api:
+    #Virá do docker hub
+    #image: viniciusmartinss/heroes-api-vinicius:v1
+    #será compilado a partir de uma pasta
+    build:
+      #informamos onde está o dockerfile dessa aplicação
+      context: nodejs-with-mongodb-api-example
+    ports: 
+        - 3000:3000
+    environment:
+      PORT: 3000
+      #Passamos o nome do serviço que será convertido para o ip interno do mongodb
+      MONGO_URL: mongodb 
+   #Nossa aplicação depende do mongodb estar rodando
+    depends_on:
+      - mongodb
+    links:
+     - mongodb
+  
+  mongodb:
+    image: mongo:4
+    #Guardar informações do banco de dados localmente
+    volumes: 
+      # - ./db:/data/db
+      #Para um disco virtual
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+
+    #criamos o disco virtual em nossa maquina
+  
+  portainer:
+    image: portainer/portainer
+    ports:
+      - "9000:9000"
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  mongo_data: {}
+  portainer_data: {}
