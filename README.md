@@ -99,7 +99,7 @@ Este arquivo é chamado `docker-compose.yml`
 - `docker-compose down` > Para matar todos os serviços, volumes e networks
 
 - Para não perder as informações de dados de aplicações, criamos volumes. Informamos a pasta local que será espelhada para a pasta container.
-- Para começar a enchergar é necessário limpar as aplicações com 
+- Para começar a enxergar é necessário limpar as aplicações com 
  `docker-compose down` e `docker-compose up`
 
 ``` yaml 
